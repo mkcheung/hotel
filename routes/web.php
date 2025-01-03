@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Backend\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function(){
 }); // End Admin Group Middleware
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
+
+Route::middleware(['auth', 'roles:admin'])->group(function(){
+
+    Route::controller(TeamController::class)->group(function(){
+        Route::get('/all/team', 'AllTeam')->name('all.team');
+    });
+}); // End Admin Group Middleware
