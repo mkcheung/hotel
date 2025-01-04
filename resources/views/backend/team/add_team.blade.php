@@ -15,17 +15,17 @@
 							</ol>
 						</nav>
 					</div>
-
+					 
 				</div>
 				<!--end breadcrumb-->
 				<div class="container">
 					<div class="main-body">
 						<div class="row">
-
+						 
     <div class="col-lg-8">
         <div class="card">
 
-            <form action="{{ route('team.store') }}" method="post" enctype="multipart/form-data">
+            <form id="myForm" action="{{ route('team.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
             <div class="card-body">
@@ -33,7 +33,7 @@
                     <div class="col-sm-3">
                         <h6 class="mb-0"> Name</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <div class="form-group col-sm-9 text-secondary">
                         <input type="text" name="name" class="form-control"  />
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="col-sm-3">
                         <h6 class="mb-0">Position</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <div class="form-group col-sm-9 text-secondary">
                         <input type="text" name="position"  class="form-control"  />
                     </div>
                 </div>
@@ -49,17 +49,17 @@
                     <div class="col-sm-3">
                         <h6 class="mb-0">Facebook</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <div class="form-group col-sm-9 text-secondary">
                         <input type="text" name="facebook" class="form-control"   />
                     </div>
                 </div>
-
-
+               
+               
                 <div class="row mb-3">
                     <div class="col-sm-3">
                         <h6 class="mb-0">Photo </h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <div class="form-group col-sm-9 text-secondary">
                         <input class="form-control" name="image" type="file" id="image">
                     </div>
                 </div>
@@ -73,10 +73,10 @@
                         <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
                     </div>
                 </div>
-
-
-
-
+               
+               
+               
+               
                 <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9 text-secondary">
@@ -87,7 +87,7 @@
         </form>
 
         </div>
-
+            
 
 
     </div>
@@ -96,7 +96,60 @@
 				</div>
 			</div>
 
+
+            <script type="text/javascript">
+                $(document).ready(function (){
+                    $('#myForm').validate({
+                        rules: {
+                            name: {
+                                required : true,
+                            }, 
+                            position: {
+                                required : true,
+                            }, 
+                            facebook: {
+                                required : true,
+                            }, 
+                            image: {
+                                required : true,
+                            },
+                            
+                        },
+                        messages :{
+                            name: {
+                                required : 'Please Enter Team Name',
+                            }, 
+                            position: {
+                                required : 'Please Enter Team Position',
+                            }, 
+                            facebook: {
+                                required : 'Please Enter Facebook Url',
+                            },
+                            image: {
+                                required : 'Please Select Image',
+                            }, 
+                             
+            
+                        },
+                        errorElement : 'span', 
+                        errorPlacement: function (error,element) {
+                            error.addClass('invalid-feedback');
+                            element.closest('.form-group').append(error);
+                        },
+                        highlight : function(element, errorClass, validClass){
+                            $(element).addClass('is-invalid');
+                        },
+                        unhighlight : function(element, errorClass, validClass){
+                            $(element).removeClass('is-invalid');
+                        },
+                    });
+                });
+                
+            </script>
+
+
       <script type="text/javascript">
+
         $(document).ready(function(){
             $('#image').change(function(e){
                 var reader = new FileReader();
@@ -106,6 +159,10 @@
                 reader.readAsDataURL(e.target.files['0']);
             });
         });
-        </script>      
+
+        </script>   
+        
+        
+
 
 @endsection
